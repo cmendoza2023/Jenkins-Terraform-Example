@@ -16,7 +16,7 @@ pipeline {
         }
     stage('tfsec') {
       steps {
-        sh ' /usr/local/bin/docker run --rm -v "$(pwd):/src" aquasec/tfsec .'
+        sh ' /usr/bin/docker run --rm -v "$(pwd):/src" aquasec/tfsec .'
       }
     }
     stage('Approval for Terraform') {
@@ -27,7 +27,7 @@ pipeline {
 
         stage('terraform') {
             steps {
-                sh '/opt/homebrew/bin/terraform apply -auto-approve -no-color'
+                sh '/usr/local/bin/terraform apply -auto-approve -no-color'
             }
         }
     }
