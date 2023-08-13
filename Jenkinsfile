@@ -2,7 +2,6 @@ pipeline {
     agent any
     options {
         skipDefaultCheckout(true)
-        ansiColor('xterm')
     }
     stages {
         stage('clean workspace') {
@@ -17,6 +16,9 @@ pipeline {
         }
     stage('tfsec') {
       steps {
+        options {
+            ansiColor('xterm')
+        }
         sh ' /usr/bin/docker run --rm -v "$(pwd):/src" aquasec/tfsec .'
       }
     }
