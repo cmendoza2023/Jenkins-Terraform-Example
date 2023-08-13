@@ -3,6 +3,9 @@ pipeline {
     options {
         skipDefaultCheckout(true)
     }
+    environment {
+        SBT_OPTS = "${SBT_OPTS} -Dsbt.color=false"
+    }
     stages {
         stage('clean workspace') {
             steps {
@@ -16,9 +19,6 @@ pipeline {
         }
     stage('tfsec') {
       steps {
-        options {
-            ansiColor('xterm')
-        }
         sh ' /usr/bin/docker run --rm -v "$(pwd):/src" aquasec/tfsec .'
       }
     }
