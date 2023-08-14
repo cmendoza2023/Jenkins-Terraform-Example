@@ -2,6 +2,7 @@ pipeline {
     agent any
     options {
         skipDefaultCheckout(true)
+        ansiColor('xterm')
     }
     stages {
         stage('clean workspace') {
@@ -12,6 +13,11 @@ pipeline {
         stage('checkout') {
             steps {
                 checkout scm
+            }
+        }
+    stage('tfsec') {
+          steps {
+                sh ' /usr/bin/docker run --rm -v "$(pwd):/src" aquasec/tfsec .'
             }
         }
     stage('Approval for Terraform') {
